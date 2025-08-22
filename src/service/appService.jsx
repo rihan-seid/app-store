@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { authService } from './auth'; // Ensure this is implemented
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4500/api/v1/applications';
+const API_URL = import.meta.env.VITE_API_URL || 'https://bk-appstore.victor-door.com/api/v1/applications';
 
 export const applicationService = {
   // CREATE
