@@ -7,7 +7,7 @@ jobs:
   App-Store-Deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: Coping Keys . . .
+      - name: Coping Keys . . . .
         run: echo "${{ secrets.APP_STORE_KEY }}" > /tmp/ssh_pub_key
       - name: Permission
         run: chmod 400 /tmp/ssh_pub_key
