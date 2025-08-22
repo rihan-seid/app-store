@@ -2,7 +2,7 @@ name: IMS Prod version | Deploy via FTP | DEV
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
   App-Store-Deployment:
     runs-on: ubuntu-latest
