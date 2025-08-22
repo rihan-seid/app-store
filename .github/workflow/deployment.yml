@@ -1,0 +1,37 @@
+name: IMS Prod version | Deploy via FTP | DEV
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  App-Store-Deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coping Keys . . .
+        run: echo "${{ secrets.APP_STORE_KEY }}" > /tmp/ssh_pub_key
+      - name: Permission
+        run: chmod 400 /tmp/ssh_pub_key
+      - name: Checkout current repo
+        uses: actions/checkout@v2
+      - name: Node version - v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+      - name: "Create enviroment variable"
+        run: |
+          touch .env
+          echo VITE_APP_BACKEND_URL_PROD=${{ secrets.REACT_APP_API_URL }} >> .env
+          cat .env
+      - name: PNPM - v8
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install dependencies and build app
+        run: |
+          pnpm install
+          pnpm build
+      - name: Upload from dist via SCP
+        run: scp -o "StrictHostKeyChecking no" -i /tmp/ssh_pub_key -r ./dist/* victordoorcom@victor-door.com:app-store.victor-door.com
+      - name: Remove SSH key
+        run: rm /tmp/ssh_pub_key
