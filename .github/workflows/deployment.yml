@@ -23,14 +23,10 @@ jobs:
           touch .env
           echo VITE_APP_BACKEND_URL_PROD=${{ secrets.REACT_APP_API_URL }} >> .env
           cat .env
-      - name: PNPM - v8
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
       - name: Install dependencies and build app
         run: |
-          pnpm install
-          pnpm build
+          npm run install
+          npm run build
       - name: Upload from dist via SCP
         run: scp -o "StrictHostKeyChecking no" -i /tmp/ssh_pub_key -r ./dist/* victordoorcom@victor-door.com:app-store.victor-door.com
       - name: Remove SSH key
