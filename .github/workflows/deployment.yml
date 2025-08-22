@@ -25,7 +25,7 @@ jobs:
           cat .env
       - name: Install dependencies and build app
         run: |
-          npm run install
+          npm install
           npm run build
       - name: Upload from dist via SCP
         run: scp -o "StrictHostKeyChecking no" -i /tmp/ssh_pub_key -r ./dist/* victordoorcom@victor-door.com:app-store.victor-door.com
